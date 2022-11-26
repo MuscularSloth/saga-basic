@@ -3,8 +3,8 @@ import { takeEvery, put, call } from "redux-saga/effects";
 import {
 	getPeopleSuccess,
 	getPeopleFailure,
-} from "./../../reducers/actions/peopleActions";
-import { peopleTypes } from "../../reducers/types/peopleTypes";
+} from "../../reducers/people/peopleActions";
+import { peopleTypes } from "../../reducers/people/peopleTypes";
 // import { IPeople, IPeoples } from "./../../reducers/stores/peopleStore";
 
 export function* peopleWatcher() {

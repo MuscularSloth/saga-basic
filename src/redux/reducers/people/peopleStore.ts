@@ -1,5 +1,5 @@
-import { peopleTypes } from "./../types/peopleTypes";
-import { IPeopleAction } from "./../actions/peopleActions";
+import { peopleTypes } from "./peopleTypes";
+import { IPeopleAction } from "./peopleActions";
 
 export interface IPeople {
 	name: string;

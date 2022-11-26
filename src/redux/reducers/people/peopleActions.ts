@@ -1,6 +1,6 @@
-import { IPeople, IPeoples } from "./../stores/peopleStore";
-import { peopleTypes } from "./../types/peopleTypes";
-import { IPeopleValuesTypes } from "./../types/peopleTypes";
+import { IPeople, IPeoples } from "./peopleStore";
+import { peopleTypes } from "./peopleTypes";
+import { IPeopleValuesTypes } from "./peopleTypes";
 
 export interface IPeopleAction {
 	type: IPeopleValuesTypes;

@@ -1,29 +1,27 @@
 import React, { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
-import { getPeopleSelector } from "../../redux/reducers/people/peopleSelector";
 import BounceLoader from "react-spinners/BounceLoader";
 import { useDispatch } from "react-redux";
 import {
-	getPeopleFetch,
-	getSinglePersonFetch,
-	// getPeopleFailure,
-	// getPeopleSuccess,
-} from "../../redux/reducers/people/peopleActions";
-import { IPeople } from "../../redux/reducers/people/peopleStore";
+	getPlanetsFetch,
+	getSinglePlanetFetch,
+} from "../../redux/reducers/planets/planetsActions";
+import { IPlanet } from "../../redux/reducers/planets/planetsStore";
+import { getPlanetsSelector } from "../../redux/reducers/planets/planetsSelector";
 
-const PeoplePage = () => {
-	const [dataToShow, setDataToShow] = useState<IPeople[]>([]);
+const PlanetsPage = () => {
+	const [dataToShow, setDataToShow] = useState<IPlanet[]>([]);
 	const { isLoading, isError, data, errorMessage } =
-		useSelector(getPeopleSelector);
+		useSelector(getPlanetsSelector);
 
 	const dispatch = useDispatch();
 
 	const handleLoadDataClick = async () => {
-		dispatch(getPeopleFetch());
+		dispatch(getPlanetsFetch());
 	};
 
 	const handlePersonClick = async (url: string) => {
-		dispatch(getSinglePersonFetch(url));
+		dispatch(getSinglePlanetFetch(url));
 	};
 
 	useEffect(() => {
@@ -36,9 +34,9 @@ const PeoplePage = () => {
 
 	return (
 		<>
-			<h2>People Page</h2>
+			<h2>Planets Page</h2>
 
-			<button onClick={handleLoadDataClick}>Load People Data</button>
+			<button onClick={handleLoadDataClick}>Load Planets Data</button>
 
 			{isLoading && <BounceLoader color='#a01989' />}
 			{isError && errorMessage && <div>Error: {errorMessage}</div>}
@@ -48,18 +46,18 @@ const PeoplePage = () => {
 					<thead>
 						<tr>
 							<th>Name</th>
-							<th>Gender</th>
+							<th>Climate</th>
 						</tr>
 					</thead>
 					<tbody>
-						{dataToShow.map((person) => (
-							<tr key={person.name}>
+						{dataToShow.map((planet) => (
+							<tr key={planet.name}>
 								<td>
-									<button onClick={() => handlePersonClick(person.url)}>
-										{person.name}
+									<button onClick={() => handlePersonClick(planet.url)}>
+										{planet.name}
 									</button>
 								</td>
-								<td>{person.gender}</td>
+								<td>{planet.climate}</td>
 							</tr>
 						))}
 					</tbody>
@@ -71,4 +69,4 @@ const PeoplePage = () => {
 	);
 };
 
-export default PeoplePage;
+export default PlanetsPage;
