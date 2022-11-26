@@ -27,10 +27,14 @@ const PeoplePage = () => {
 	};
 
 	useEffect(() => {
-		if (data && Array.isArray(data) && data.length > 0) {
-			setDataToShow(data);
-		} else if (data && "results" in data) {
+		console.log("useEffect data: ", data);
+
+		if (data && "results" in data) {
 			setDataToShow(data.results);
+		} else if (data) {
+			const newArr: IPeople[] = [];
+			newArr.push(data);
+			setDataToShow(newArr);
 		}
 	}, [data]);
 

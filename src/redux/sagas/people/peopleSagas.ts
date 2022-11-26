@@ -1,5 +1,6 @@
+import { getPeopleSelector } from "./../../reducers/people/peopleSelector";
 import { SagaIterator } from "redux-saga";
-import { takeEvery, put, call } from "redux-saga/effects";
+import { takeEvery, put, call, select } from "redux-saga/effects";
 import {
 	getPeopleSuccess,
 	getPeopleFailure,
@@ -25,10 +26,10 @@ export function* peopleFetchWorker(): SagaIterator {
 }
 
 export function* singlePersonFetchWorker(): SagaIterator {
-	const apiStarWars = "https://swapi.dev/api/people";
+	const { currentPersonLink } = yield select(getPeopleSelector);
 
 	try {
-		const request = yield call(fetch, apiStarWars);
+		const request = yield call(fetch, currentPersonLink);
 		const data = yield call([request, request.json]);
 		yield put(getPeopleSuccess(data));
 	} catch (e) {

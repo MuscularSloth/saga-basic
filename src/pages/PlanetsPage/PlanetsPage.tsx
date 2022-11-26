@@ -16,19 +16,23 @@ const PlanetsPage = () => {
 
 	const dispatch = useDispatch();
 
-	const handleLoadDataClick = async () => {
+	const handleLoadDataClick = () => {
 		dispatch(getPlanetsFetch());
 	};
 
-	const handlePersonClick = async (url: string) => {
+	const handlePersonClick = (url: string) => {
 		dispatch(getSinglePlanetFetch(url));
 	};
 
 	useEffect(() => {
-		if (data && Array.isArray(data) && data.length > 0) {
-			setDataToShow(data);
-		} else if (data && "results" in data) {
+		console.log("useEffect data: ", data);
+
+		if (data && "results" in data) {
 			setDataToShow(data.results);
+		} else if (data) {
+			const newArr: IPlanet[] = [];
+			newArr.push(data);
+			setDataToShow(newArr);
 		}
 	}, [data]);
 

@@ -29,14 +29,16 @@ interface IPlanetState {
 	isLoading: boolean;
 	isError: boolean;
 	errorMessage: string | null;
-	data: IPlanet[] | IPlanets;
+	data: IPlanet | IPlanets | null;
+	currentPlanetLink: string | null;
 }
 
 const initialState: IPlanetState = {
 	isLoading: false,
 	isError: false,
 	errorMessage: null,
-	data: [],
+	data: null,
+	currentPlanetLink: null,
 };
 
 export const planetsStore = (
@@ -50,10 +52,18 @@ export const planetsStore = (
 		GET_PLANETS_FAILURE,
 	} = planetsTypes;
 
+	console.log(action);
+
 	switch (action.type) {
 		case GET_PLANETS_FETCH:
-		case GET_SINGLE_PLANET_FETCH:
 			return { ...state, isError: false, isLoading: true };
+		case GET_SINGLE_PLANET_FETCH:
+			return {
+				...state,
+				isError: false,
+				isLoading: true,
+				currentPlanetLink: action.payload,
+			};
 		case GET_PLANETS_SUCCESS:
 			return {
 				...state,
