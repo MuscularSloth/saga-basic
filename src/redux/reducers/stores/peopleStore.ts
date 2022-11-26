@@ -1,7 +1,7 @@
 import { peopleTypes } from "./../types/peopleTypes";
 import { IPeopleAction } from "./../actions/peopleActions";
 
-interface IPeople {
+export interface IPeople {
 	name: string;
 	height: string;
 	mass: string;
@@ -20,11 +20,18 @@ interface IPeople {
 	url: string;
 }
 
+export interface IPeoples {
+	count: number;
+	next: string | null;
+	previous: string | null;
+	results: IPeople[];
+}
+
 interface IPeopleState {
 	isLoading: boolean;
 	isError: boolean;
 	errorMessage: string | null;
-	data: IPeople[];
+	data: IPeople[] | IPeoples;
 }
 
 const initialState: IPeopleState = {
@@ -38,11 +45,16 @@ export const peopleStore = (
 	state = initialState,
 	action: IPeopleAction
 ): IPeopleState => {
-	const { GET_PEOPLE_FETCH, GET_PEOPLE_SUCCESS, GET_PEOPLE_FAILURE } =
-		peopleTypes;
+	const {
+		GET_PEOPLE_FETCH,
+		GET_SINGLE_PERSON_FETCH,
+		GET_PEOPLE_SUCCESS,
+		GET_PEOPLE_FAILURE,
+	} = peopleTypes;
 
 	switch (action.type) {
 		case GET_PEOPLE_FETCH:
+		case GET_SINGLE_PERSON_FETCH:
 			return { ...state, isError: false, isLoading: true };
 		case GET_PEOPLE_SUCCESS:
 			return {
@@ -56,7 +68,7 @@ export const peopleStore = (
 				...state,
 				isError: true,
 				isLoading: false,
-				errorMessage: action.payload,
+				errorMessage: action.payload.message,
 			};
 		default:
 			return state;

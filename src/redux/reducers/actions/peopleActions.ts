@@ -1,18 +1,29 @@
-import { IPeopleTypes } from "./../types/peopleTypes";
+import { IPeople, IPeoples } from "./../stores/peopleStore";
+import { peopleTypes } from "./../types/peopleTypes";
+import { IPeopleValuesTypes } from "./../types/peopleTypes";
 
 export interface IPeopleAction {
-	type: IPeopleTypes;
+	type: IPeopleValuesTypes;
 	payload?: any;
 }
 
 export const getPeopleFetch = (): IPeopleAction => ({
-	type: "GET_PEOPLE_FETCH",
+	type: peopleTypes.GET_PEOPLE_FETCH,
 });
 
-export const getPeopleSuccess = (): IPeopleAction => ({
-	type: "GET_PEOPLE_SUCCESS",
+export const getSinglePersonFetch = (url: string): IPeopleAction => ({
+	type: peopleTypes.GET_SINGLE_PERSON_FETCH,
+	payload: url,
 });
 
-export const getPeopleFailure = (): IPeopleAction => ({
-	type: "GET_PEOPLE_FAILURE",
+export const getPeopleSuccess = (
+	data: IPeople[] | IPeoples
+): IPeopleAction => ({
+	type: peopleTypes.GET_PEOPLE_SUCCESS,
+	payload: data,
+});
+
+export const getPeopleFailure = (error: string | unknown): IPeopleAction => ({
+	type: peopleTypes.GET_PEOPLE_FAILURE,
+	payload: error,
 });

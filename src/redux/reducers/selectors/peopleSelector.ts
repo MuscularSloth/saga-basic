@@ -1,3 +1,3 @@
-import { RootState } from "./../rootStore";
+import { RootState } from "../..";
 
 export const getPeopleSelector = (state: RootState) => state.people;
